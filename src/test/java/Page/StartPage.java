@@ -8,8 +8,6 @@ import org.openqa.selenium.WebElement;
 
 public class StartPage {
 
-
-
     public WebDriver driver;
 
     By LoginToAccount =  By.className("_3odNv2Dw2n");

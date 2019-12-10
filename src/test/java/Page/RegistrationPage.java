@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 
 public class RegistrationPage {
 
-
     private final WebDriver driver;
     By LoginLocator = By.id("passp-field-login");
     By LoginNextButtonLocator = By.cssSelector("#root > div > div > div.passp-flex-wrapper > div > div.passp-auth " +
