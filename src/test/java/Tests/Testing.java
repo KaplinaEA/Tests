@@ -33,6 +33,7 @@ public class Testing {
             //assertTrue(registrationPage.isInitialized());
 
 
+            
             startPage.AccountEnter();//перейти в профиль
             registrationPage.LoginEnter("huladesa");//ввод логина
             registrationPage.PasswordEnter("hulklagoa");//ввод пароля
