@@ -8,10 +8,8 @@ import Page.RegistrationPage;
 import Page.StartPage;
 import org.junit.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.util.concurrent.TimeUnit;
 public class LogInTest {
-
         private static ChromeDriver driver;
         @BeforeClass
         public static void setUp(){
@@ -19,7 +17,6 @@ public class LogInTest {
             driver = new ChromeDriver();
             driver.manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
         }
-
         @Test
         public void signUp() throws InterruptedException {
             driver.get("https://beru.ru/");
@@ -34,7 +31,6 @@ public class LogInTest {
             Assert.assertEquals("Мой профиль", startPage.ProfileEnter().getAttribute("textContent"));
             Assert.assertEquals( "К К", startPage.MyProfileEnter().getAttribute("textContent"));
         }
-
         @AfterClass
         public static void tearDown(){
             driver.close();

@@ -11,10 +11,26 @@ import Page.RegistrationPage;
 import Page.SettingsPage;
 import Page.StartPage;
 import org.junit.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.util.concurrent.TimeUnit;
+
+
+@RunWith(value = Parameterized.class)
+
 public class ChangeCityTest {
+
+    private String City;
+    public ChangeCityTest(String City){
+        this.City = City;
+    }
+    @Parameterized.Parameters //(name = "city")
+    public  static  Object [] isCities() {
+        return  new Object [] {"Хвалынск", "Энгельс", "Самара", "Санкт-Петербург"};
+    }
+
+
 
     private static ChromeDriver driver;
     @BeforeClass
@@ -31,9 +47,9 @@ public class ChangeCityTest {
         StartPage startPage = new StartPage(driver);
 
         startPage.CityEnter();
-        startPage.CityInput("Хвалынск");
+        startPage.CityInput (City);
         startPage.Ok();
-        Assert.assertEquals("Хвалынск", startPage.Getcity());
+        Assert.assertEquals(City, startPage.GetCity());
 
         startPage.AccountEnter();
         RegistrationPage registrationPage  = new  RegistrationPage(driver);
@@ -44,7 +60,12 @@ public class ChangeCityTest {
 
         SettingsPage settingsPage  = new  SettingsPage(driver);
         Assert.assertEquals(settingsPage.GetCity1(), settingsPage.GetCity2());
+
+        startPage.AccountEnter();
+        startPage.End();
     }
+
+
 
     @AfterClass
     public static void tearDown(){

@@ -1,5 +1,4 @@
 package Page;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,26 +8,27 @@ public class RegistrationPage {
 
     private final WebDriver driver;
     By LoginLocator = By.id("passp-field-login");
-    By LoginNextButtonLocator = By.cssSelector("div.passp-button button[type = 'submit']");
-    By passwordLocator = By.id("passp-field-passwd");
-    By passwordNextButtonLocator = By.cssSelector("div.passp-button button[type = 'submit']");
-
+    By Next = By.cssSelector("div.passp-button button[type = 'submit']");
+    By PasswordLocator = By.id("passp-field-passwd");
 
     public RegistrationPage(WebDriver driver) {
         this.driver=driver;
     }
 
     public void LoginEnter(String Login){
-        driver.findElement(LoginLocator).sendKeys(Login);
-        driver.findElement(LoginNextButtonLocator).click();
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.elementToBeClickable(Next));
+            if(driver.findElements( PasswordLocator ).size() == 0) {
+                driver.findElement(LoginLocator).sendKeys(Login);
+                driver.findElement(Next).click();
+            }
     }
 
     public void PasswordEnter(String Password){
         WebDriverWait wait = new WebDriverWait(driver,20);
-        wait.until(ExpectedConditions.elementToBeClickable(passwordLocator));
-        driver.findElement(passwordLocator).sendKeys(Password);
-        driver.findElement(passwordNextButtonLocator).click();
+        wait.until(ExpectedConditions.elementToBeClickable(Next));
+        driver.findElement(PasswordLocator).sendKeys(Password);
+        driver.findElement(Next).click();
     }
-
 
 }
