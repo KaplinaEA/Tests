@@ -19,7 +19,8 @@ public class StartPage {
     By Equal = By.cssSelector("#react-autowhatever-region--item-0 > div > div > div._229JDbp_Z8");
     By Settings =   By.cssSelector( "div._3gVpo2i2jf a[ href=\"/my/settings?track=menu\"]");
     By CityInput = By.cssSelector("div[class =\"LVfMs-qeRX tOTC_Mrer- _38DKtrKp3V nczD08OBdF _2jnB2KZa7v _1WIxduPIjW\"] input");
-    By CityButton =  By.cssSelector("div._1hOJdjk4Dx span.NELKq_vpT1 span.zB1fta3NQ5");
+    By CityButton =  By.cssSelector("span[data-auto='region-form-opener'].zB1fta3NQ5");
+   // By CityButton =  By.cssSelector("div._1hOJdjk4Dx span.NELKq_vpT1 span.zB1fta3NQ5");
     By LoginToAccount =  By.className("_3ZGcN3lbEg");
     By MyProfile = By.cssSelector("div._2I5v9t-gmG span");
     By Profile = By.className("pFhTbV17qj");
@@ -37,19 +38,22 @@ public class StartPage {
     public void CityEnter(){
         WebDriverWait wait = new WebDriverWait(driver,20);
         wait.until(ExpectedConditions.elementToBeClickable(CityButton));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(CityButton));
         driver.findElement(CityButton).click();
     }
 
     @Step(value = "Сity")
     public  String GetCity(){
         WebDriverWait wait = new WebDriverWait(driver,20);
-        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(CityButton)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(CityButton));
+       // wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(CityButton)));
         return driver.findElement(CityButton).getAttribute("textContent");
     }
 
     @Step(value = "Сity entry")
     public  void  CityInput(String city){
         WebDriverWait wait = new WebDriverWait(driver,20);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(CityInput)));
         wait.until(ExpectedConditions.elementToBeClickable(CityInput));
         WebElement web =    driver.findElement(CityInput);
         web.click();
@@ -74,7 +78,9 @@ public class StartPage {
     @Step(value = "Button settings")
     public  void  Settings(){
         WebDriverWait wait = new WebDriverWait(driver,20);
-        wait.until(ExpectedConditions.invisibilityOf( driver.findElement(Settings)));
+        Actions action = new Actions(driver);
+        action.moveToElement(driver.findElement(LoginToAccount)).perform();
+        //wait.until(ExpectedConditions.invisibilityOf( driver.findElement(Settings)));
         wait.until(ExpectedConditions.elementToBeClickable(Settings));
         driver.findElement(Settings).click();
     }
@@ -84,6 +90,7 @@ public class StartPage {
     public void AccountEnter(){
         WebDriverWait wait = new WebDriverWait(driver,40);
         wait.until(ExpectedConditions.elementToBeClickable(LoginToAccount));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(LoginToAccount));
         Actions action = new Actions(driver);
         action.moveToElement(driver.findElement(LoginToAccount)).perform();
         driver.findElement(LoginToAccount).click();
@@ -108,6 +115,8 @@ public class StartPage {
     public  void  End(){
         WebDriverWait wait = new WebDriverWait(driver,20);
         wait.until(ExpectedConditions.elementToBeClickable(End));
+        Actions action = new Actions(driver);
+        action.moveToElement(driver.findElement(LoginToAccount)).perform();
         driver.findElement(End).click();
     }
 

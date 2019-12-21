@@ -94,8 +94,10 @@ public class ElectricToothbrushesPage {
     }
 
     @Step(value = "Brush cost+ shipping")
-    public  boolean TotalPrice() throws InterruptedException {
+    public  boolean TotalPrice()  {
         WebDriverWait wait = new WebDriverWait(driver,30);
+        wait.until((ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.oVTSBGkD1W"))));
+
         wait.until(ExpectedConditions.elementToBeClickable(GoToFormalization));
         driver.findElement(GoToFormalization).click();
         wait.until(ExpectedConditions.elementToBeClickable(Courier));
@@ -105,9 +107,9 @@ public class ElectricToothbrushesPage {
         component1 = Float.parseFloat(componentPrices.get(0).getText().replaceAll(" ", "").replaceAll("₽",""));
         String st= componentPrices.get(1).getText().replaceAll(" ", "").replaceAll("₽", "");
         float component2 =0;
-        if(st!="бесплатно") {
-             component2 = Float.parseFloat(st.replaceAll(" ", "").replaceAll("₽", ""));
-        }
+        try {
+             component2 = Float.parseFloat(st);
+        }catch (Exception e){}
         float price = Float.parseFloat(driver.findElement(Price).getText().replaceAll(" ", "").replaceAll("₽",""));
         if(driver.findElements(Discount).size() !=0) {
             discount = Float.parseFloat(driver.findElement(Discount).getText().replaceAll(" ", "").replaceAll("₽", "").replaceAll("−", "-"));
@@ -116,7 +118,7 @@ public class ElectricToothbrushesPage {
     }
 
     @Step(value = "Increase the quantity  product")
-    public  void AddProduct() throws InterruptedException {
+    public  void AddProduct()  {
         WebDriverWait wait = new WebDriverWait(driver,20);
         wait.until(ExpectedConditions.elementToBeClickable(Change));
         driver.findElement(Change).click();

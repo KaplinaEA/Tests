@@ -69,7 +69,7 @@ public class ChangeCityTest {
 
     @AfterClass
     public static void tearDown(){
-        driver.close();
+        //driver.close();
     }
 
 }

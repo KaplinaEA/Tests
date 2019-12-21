@@ -50,7 +50,6 @@ public class CatalogAndBasketTest {
     @AfterClass
     public static void tearDown(){
         driver.close();
-
     }
 
 }
