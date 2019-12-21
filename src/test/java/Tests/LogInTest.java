@@ -29,7 +29,7 @@ public class LogInTest {
             registrationPage.LoginEnter("huladesa");
             registrationPage.PasswordEnter("hulklagoa");
             Assert.assertEquals("Мой профиль", startPage.ProfileEnter().getAttribute("textContent"));
-            Assert.assertEquals( "К К", startPage.MyProfileEnter().getAttribute("textContent"));
+            Assert.assertEquals( "К К", startPage.MyLogin().getAttribute("textContent"));
         }
         @AfterClass
         public static void tearDown(){

@@ -1,4 +1,5 @@
 package Page;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,6 +16,7 @@ public class RegistrationPage {
         this.driver=driver;
     }
 
+    @Step(value = "Login")
     public void LoginEnter(String Login){
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.elementToBeClickable(Next));
@@ -24,6 +26,7 @@ public class RegistrationPage {
             }
     }
 
+    @Step(value = "Password")
     public void PasswordEnter(String Password){
         WebDriverWait wait = new WebDriverWait(driver,20);
         wait.until(ExpectedConditions.elementToBeClickable(Next));

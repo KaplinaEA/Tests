@@ -1,4 +1,5 @@
 package Page;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,11 +14,13 @@ public class SettingsPage {
     public SettingsPage(WebDriver driver) {
         this.driver=driver;
     }
+    @Step(value = "Сity")
     public String GetCity2(){
         WebDriverWait wait = new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.elementToBeClickable(CityInput));
         return driver.findElement(CityInput).getAttribute("textContent");
     }
+    @Step(value =  "delivery city")
     public String GetCity1(){
         WebDriverWait wait = new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.elementToBeClickable(CityInSettings));

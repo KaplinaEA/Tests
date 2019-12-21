@@ -1,8 +1,10 @@
 package Page;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,31 +25,35 @@ public class StartPage {
     By Profile = By.className("pFhTbV17qj");
     By End = By.cssSelector("div._3odNv2Dw2n ul.T3jKK6NbAR:nth-of-type(4) " +
             "a[href = \"/logout?retpath=https%3A%2F%2Fberu.ru%2Fmy%2Fsettings%3Ftrack%3Dmenu\"] ");
-
+    By ElectricToothbrushes = By.cssSelector("div._2rB4CmYYJC div._1xDYs0YHLz  a[title ='Электрические зубные щетки'] ");
+    By BeautyAndHygiene  = By.cssSelector("div._3JUsAgML4w a[title ='Красота и гигиена']");
+    By Catalog = By.cssSelector ("div._301_b-LBxR button");
 
     public StartPage(WebDriver driver) {
         this.driver=driver;
     }
 
+    @Step(value = "Сhange city")
     public void CityEnter(){
         WebDriverWait wait = new WebDriverWait(driver,20);
         wait.until(ExpectedConditions.elementToBeClickable(CityButton));
         driver.findElement(CityButton).click();
     }
 
+    @Step(value = "Сity")
     public  String GetCity(){
         WebDriverWait wait = new WebDriverWait(driver,20);
-        wait.until(ExpectedConditions.elementToBeClickable(CityButton));
+        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(CityButton)));
         return driver.findElement(CityButton).getAttribute("textContent");
     }
 
+    @Step(value = "Сity entry")
     public  void  CityInput(String city){
         WebDriverWait wait = new WebDriverWait(driver,20);
         wait.until(ExpectedConditions.elementToBeClickable(CityInput));
         WebElement web =    driver.findElement(CityInput);
         web.click();
         web.sendKeys(Keys.chord(Keys.CONTROL,"a")+ Keys.DELETE);
-
 
         char[] charArray =  city.toCharArray();
         (new WebDriverWait(driver, 10)).until((ExpectedCondition<Boolean>) driver1 -> {
@@ -58,40 +64,65 @@ public class StartPage {
         driver.findElement(Equal).click();
     }
 
+    @Step(value = "Button good")
     public  void  Ok(){
         WebDriverWait wait = new WebDriverWait(driver,20);
         wait.until(ExpectedConditions.elementToBeClickable(Ok));
         driver.findElement(Ok).click();
     }
 
+    @Step(value = "Button settings")
     public  void  Settings(){
         WebDriverWait wait = new WebDriverWait(driver,20);
-        //wait.until(ExpectedConditions.invisibilityOf( driver.findElement(Settings)));
+        wait.until(ExpectedConditions.invisibilityOf( driver.findElement(Settings)));
         wait.until(ExpectedConditions.elementToBeClickable(Settings));
         driver.findElement(Settings).click();
     }
 
+
+    @Step(value = "Account or profile")
     public void AccountEnter(){
-        WebDriverWait wait = new WebDriverWait(driver,20);
+        WebDriverWait wait = new WebDriverWait(driver,40);
         wait.until(ExpectedConditions.elementToBeClickable(LoginToAccount));
+        Actions action = new Actions(driver);
+        action.moveToElement(driver.findElement(LoginToAccount)).perform();
         driver.findElement(LoginToAccount).click();
+
     }
 
+    @Step(value = "Profile")
     public WebElement ProfileEnter()    {
         WebDriverWait wait = new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.elementToBeClickable(Profile));
         return driver.findElement(Profile);
     }
 
-    public WebElement MyProfileEnter() {
+    @Step(value = "Login")
+    public WebElement MyLogin() {
         WebDriverWait wait = new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.invisibilityOf(driver.findElement(MyProfile)));
         return driver.findElement(MyProfile);
     }
 
+    @Step(value = "Exit from profile")
     public  void  End(){
         WebDriverWait wait = new WebDriverWait(driver,20);
         wait.until(ExpectedConditions.elementToBeClickable(End));
         driver.findElement(End).click();
     }
+
+    @Step(value = "Go to the catalog of electric toothbrushes")
+    public  void  Catalog() {
+        WebDriverWait wait = new WebDriverWait(driver,40);
+        wait.until(ExpectedConditions.elementToBeClickable(Catalog));
+        driver.findElement(Catalog).click();
+
+        Actions action = new Actions(driver);
+        wait.until(ExpectedConditions.elementToBeClickable(BeautyAndHygiene));
+        action.moveToElement(driver.findElement(BeautyAndHygiene)).perform();
+
+        driver.findElement(ElectricToothbrushes).click();
+
+    }
+
 }

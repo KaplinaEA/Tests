@@ -27,7 +27,7 @@ public class ChangeCityTest {
     }
     @Parameterized.Parameters //(name = "city")
     public  static  Object [] isCities() {
-        return  new Object [] {"Хвалынск", "Энгельс", "Самара", "Санкт-Петербург"};
+        return  new Object [] {"Хвалынск", "Энгельс"};//, "Самара", "Санкт-Петербург"};
     }
 
 
@@ -69,7 +69,7 @@ public class ChangeCityTest {
 
     @AfterClass
     public static void tearDown(){
-       driver.close();
+        driver.close();
     }
 
 }
