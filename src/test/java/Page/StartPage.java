@@ -78,11 +78,14 @@ public class StartPage {
     @Step(value = "Button settings")
     public  void  Settings(){
         WebDriverWait wait = new WebDriverWait(driver,20);
-        Actions action = new Actions(driver);
-        action.moveToElement(driver.findElement(LoginToAccount)).perform();
-        //wait.until(ExpectedConditions.invisibilityOf( driver.findElement(Settings)));
+//        Actions action = new Actions(driver);
+//        action.moveToElement(driver.findElement(LoginToAccount)).perform();
+//        wait.until(ExpectedConditions.invisibilityOf( driver.findElement(Settings)));
         wait.until(ExpectedConditions.elementToBeClickable(Settings));
         driver.findElement(Settings).click();
+
+
+
     }
 
 

@@ -22,7 +22,11 @@ public class ElectricToothbrushesPage {
     By AllToothbrushesButton = By.cssSelector("div._1uhsh_io8o div._1RjY7YIluf button");
     //By Basket = By.cssSelector("a[href=\"/my/cart\"] button");
     By Basket = By.cssSelector("a[href=\"/my/cart\"]");
-    By Update = By.cssSelector("div._YgMDoJ6pG");
+    //By Update = By.cssSelector("div._YgMDoJ6pG");
+    By Update = By.cssSelector("div.NZiH_Kn8Fj span._3l-uEDOaBN");
+//        By Update = By.cssSelector("body.i-font_face_ys-text.i-bem.fonts-loaded:nth-child(2) " +
+//                 "div._3rWu3-6RDl.qpgDgmh6Hn._11QbuC0gtX._1zxBwSfbGK._1mXFu6EZpv " +
+//                 "div.wrItvb7JRv div.NZiH_Kn8Fj span._3l-uEDOaBN.tdrs43E7Xn._3HJsMt3YC_.W-B6JRTjJH > span._3ioN70chUh._3XRVQbB83A");
     By BeforeFreeDelivery = By.cssSelector("span._3e5zCA3HUO span");
     By GoToFormalization = By.cssSelector("div.bLjj5ddV9I button");
     By Courier = By.cssSelector("div[data-auto='DELIVERY']");
@@ -51,8 +55,12 @@ public class ElectricToothbrushesPage {
     public  void  More (){
         WebDriverWait wait = new WebDriverWait(driver,10);
         wait.until((ExpectedConditions.visibilityOfElementLocated(Update)));
-        wait.until(ExpectedConditions.elementToBeClickable(ShowMore));
-        driver.findElement(ShowMore).click();
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(ShowMore));
+            driver.findElement(ShowMore).click();
+        }
+        catch (Exception e){}
+
     }
 
     @Step(value = "Sorting check")

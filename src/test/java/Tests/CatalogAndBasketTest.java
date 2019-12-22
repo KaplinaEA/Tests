@@ -1,3 +1,4 @@
+
 /*
 //Перейти в каталог электрических зубных щеток,
 // выполнить поиск с диапазоном цен от  999 до 1999 рублей.
@@ -12,23 +13,27 @@ package Tests;
 
 import Page.ElectricToothbrushesPage;
 import Page.StartPage;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+//import org.junit.AfterClass;
+//import org.junit.Assert;
+//import org.junit.BeforeClass;
+//import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class CatalogAndBasketTest {
+public class CatalogAndBasketTest extends WebDriverSettings{
 
-    private static ChromeDriver driver;
-    @BeforeClass
-    public static void setUp(){
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\apache-maven-3.6.2\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
-    }
+    // private static ChromeDriver driver;
+//    @BeforeMethod
+//    public static void setUp(){
+//        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
+//        driver = new ChromeDriver();
+//        driver.manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
+//    }
 
     @Test
     public void signUp() throws InterruptedException {
@@ -47,9 +52,9 @@ public class CatalogAndBasketTest {
         Assert.assertTrue(electricToothbrushesPage.TotalPrice());
         electricToothbrushesPage.AddProduct();
     }
-    @AfterClass
-    public static void tearDown(){
-        driver.close();
-    }
+//    @AfterMethod
+//    public static void tearDown(){
+//        driver.close();
+//    }
 
 }
