@@ -26,14 +26,12 @@ public class WebDriverSettings {
         listener = new Screenshot();
         wait = new WebDriverWait(chromeDriver, 10);
         driver.register(listener);
-        driver.manage().window().fullscreen();
-
+        driver.manage().window().maximize();
     }
 
     @AfterMethod
     protected void TearDown() {
-        driver.close();
-        //driver.quit();
+        //driver.close();
     }
 
     @AfterMethod

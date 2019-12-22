@@ -20,13 +20,9 @@ public class ElectricToothbrushesPage {
     By ShowMore = By.cssSelector("div [data-zone-name = \"SearchPager\"] button");
     By AllToothbrushesPrice = By.cssSelector("div._1uhsh_io8o div._1RjY7YIluf a div._rcv168PjI div._1u3j_pk1db span span:nth-child(1)");
     By AllToothbrushesButton = By.cssSelector("div._1uhsh_io8o div._1RjY7YIluf button");
-    //By Basket = By.cssSelector("a[href=\"/my/cart\"] button");
     By Basket = By.cssSelector("a[href=\"/my/cart\"]");
     //By Update = By.cssSelector("div._YgMDoJ6pG");
     By Update = By.cssSelector("div.NZiH_Kn8Fj span._3l-uEDOaBN");
-//        By Update = By.cssSelector("body.i-font_face_ys-text.i-bem.fonts-loaded:nth-child(2) " +
-//                 "div._3rWu3-6RDl.qpgDgmh6Hn._11QbuC0gtX._1zxBwSfbGK._1mXFu6EZpv " +
-//                 "div.wrItvb7JRv div.NZiH_Kn8Fj span._3l-uEDOaBN.tdrs43E7Xn._3HJsMt3YC_.W-B6JRTjJH > span._3ioN70chUh._3XRVQbB83A");
     By BeforeFreeDelivery = By.cssSelector("span._3e5zCA3HUO span");
     By GoToFormalization = By.cssSelector("div.bLjj5ddV9I button");
     By Courier = By.cssSelector("div[data-auto='DELIVERY']");
@@ -60,7 +56,6 @@ public class ElectricToothbrushesPage {
             driver.findElement(ShowMore).click();
         }
         catch (Exception e){}
-
     }
 
     @Step(value = "Sorting check")
@@ -89,15 +84,9 @@ public class ElectricToothbrushesPage {
     @Step(value = "Go to basket")
     public  void   Basket(){
         WebDriverWait wait = new WebDriverWait(driver,40);
-        wait.until(ExpectedConditions.elementToBeClickable(Basket));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(Basket));
-
-          //  while (driver.findElements(By.cssSelector("a[href ='/pricedrop']")).size() !=0) {  }
-            //while (driver.findElements(By.cssSelector("adiv._3UjOWy-LbN")).size() !=0) {  }
-            //wait.until((ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div._3UjOWy-LbN"))));
-            wait.until(ExpectedConditions.elementToBeClickable(Basket));
-            driver.findElement(Basket).click();
-
+        wait.until(ExpectedConditions.elementToBeClickable(Basket));
+        driver.findElement(Basket).click();
     }
 
     @Step(value = "Before free delivery")
@@ -119,9 +108,15 @@ public class ElectricToothbrushesPage {
         WebDriverWait wait = new WebDriverWait(driver,30);
         wait.until(ExpectedConditions.elementToBeClickable(Basket));
         driver.findElement(Basket).click();
-        wait.until((ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.oVTSBGkD1W"))));
-        wait.until(ExpectedConditions.elementToBeClickable(GoToFormalization));
-        driver.findElement(GoToFormalization).click();
+        //wait.until((ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.oVTSBGkD1W"))));
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(GoToFormalization));
+            driver.findElement(GoToFormalization).click();
+        }catch (Exception e){
+            wait.until(ExpectedConditions.elementToBeClickable(Basket));
+            driver.findElement(Basket).click();
+
+        }
         wait.until(ExpectedConditions.elementToBeClickable(Courier));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div [class='section _3yiPi47kNr _2xwcHVtjcy']")));
         driver.findElement(Courier).click();
@@ -144,13 +139,15 @@ public class ElectricToothbrushesPage {
         WebDriverWait wait = new WebDriverWait(driver,20);
         wait.until(ExpectedConditions.elementToBeClickable(Change));
         driver.findElement(Change).click();
-
         int count =(int)Math.ceil(2999/(component1+discount));
-
         wait.until(ExpectedConditions.elementToBeClickable(Plus));
         for(int i=0;i<count-1;++i)   driver.findElement(Plus).click();
-        TotalPrice();
 
+
+        wait.until(ExpectedConditions.elementToBeClickable(Basket));
+        wait.until((ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.oVTSBGkD1W"))));
+       // driver.findElement(Basket).click();
+       // TotalPrice();
     }
 }
 
