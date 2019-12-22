@@ -20,7 +20,8 @@ public class ElectricToothbrushesPage {
     By ShowMore = By.cssSelector("div [data-zone-name = \"SearchPager\"] button");
     By AllToothbrushesPrice = By.cssSelector("div._1uhsh_io8o div._1RjY7YIluf a div._rcv168PjI div._1u3j_pk1db span span:nth-child(1)");
     By AllToothbrushesButton = By.cssSelector("div._1uhsh_io8o div._1RjY7YIluf button");
-    By Basket = By.cssSelector("a[href=\"/my/cart\"] button");
+    //By Basket = By.cssSelector("a[href=\"/my/cart\"] button");
+    By Basket = By.cssSelector("a[href=\"/my/cart\"]");
     By Update = By.cssSelector("div._YgMDoJ6pG");
     By BeforeFreeDelivery = By.cssSelector("span._3e5zCA3HUO span");
     By GoToFormalization = By.cssSelector("div.bLjj5ddV9I button");
@@ -79,25 +80,38 @@ public class ElectricToothbrushesPage {
 
     @Step(value = "Go to basket")
     public  void   Basket(){
-        WebDriverWait wait = new WebDriverWait(driver,10);
+        WebDriverWait wait = new WebDriverWait(driver,40);
         wait.until(ExpectedConditions.elementToBeClickable(Basket));
-        driver.findElement(Basket).click();
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(Basket));
+
+          //  while (driver.findElements(By.cssSelector("a[href ='/pricedrop']")).size() !=0) {  }
+            //while (driver.findElements(By.cssSelector("adiv._3UjOWy-LbN")).size() !=0) {  }
+            //wait.until((ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div._3UjOWy-LbN"))));
+            wait.until(ExpectedConditions.elementToBeClickable(Basket));
+            driver.findElement(Basket).click();
+
     }
 
     @Step(value = "Before free delivery")
     public  float   BeforeFree () {
-        WebDriverWait wait = new WebDriverWait(driver,40);
-        wait.until(ExpectedConditions.elementToBeClickable(GoToFormalization));
+        WebDriverWait wait = new WebDriverWait(driver,10);
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(GoToFormalization));
+        }catch (Exception e){
+            wait.until(ExpectedConditions.elementToBeClickable(Basket));
+            driver.findElement(Basket).click();
+            wait.until(ExpectedConditions.elementToBeClickable(GoToFormalization));
+        }
         String beforeFree = driver.findElement(BeforeFreeDelivery).getText();
         return Float.parseFloat(beforeFree.replaceAll("₽", "").replaceAll(" ", ""));
-
     }
 
     @Step(value = "Brush cost+ shipping")
     public  boolean TotalPrice()  {
         WebDriverWait wait = new WebDriverWait(driver,30);
+        wait.until(ExpectedConditions.elementToBeClickable(Basket));
+        driver.findElement(Basket).click();
         wait.until((ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.oVTSBGkD1W"))));
-
         wait.until(ExpectedConditions.elementToBeClickable(GoToFormalization));
         driver.findElement(GoToFormalization).click();
         wait.until(ExpectedConditions.elementToBeClickable(Courier));
